@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Заявки — LeadCRM</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body class="admin-page">
+    <header class="topbar">
+      <div class="container topbar__inner">
+        <a class="brand" href="/admin" aria-label="LeadCRM — заявки">
+          <span class="brand__mark" aria-hidden="true">L</span>
+          <span class="brand__text">Lead<span>CRM</span></span>
+        </a>
+
+        <div class="topbar__actions">
+          <span class="topbar__user" id="user-login"></span>
+          <a class="button button--ghost button--small" href="/api/export.csv">
+            Экспорт CSV
+          </a>
+          <button class="button button--ghost button--small" type="button" id="refresh-button">
+            Обновить
+          </button>
+          <button class="button button--ghost button--small" type="button" id="logout-button">
+            Выйти
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container admin-main">
+      <div class="admin-heading">
+        <div>
+          <p class="eyebrow">Рабочее пространство</p>
+          <h1>Заявки</h1>
+        </div>
+        <p class="admin-heading__hint">
+          Новые заявки приходят из формы на демо-лендинге.
+        </p>
+      </div>
+
+      <section class="stats" id="stats" aria-label="Статистика заявок"></section>
+
+      <section class="panel" aria-labelledby="leads-title">
+        <div class="panel__head">
+          <h2 id="leads-title">Все заявки</h2>
+
+          <div class="toolbar">
+            <label class="search">
+              <span class="visually-hidden">Поиск по заявкам</span>
+              <input
+                id="search"
+                type="search"
+                placeholder="Имя, телефон или комментарий"
+                autocomplete="off"
+              >
+            </label>
+
+            <label class="select-wrap">
+              <span class="visually-hidden">Фильтр по статусу</span>
+              <select id="status-filter">
+                <option value="all">Все статусы</option>
+                <option value="new">Новые</option>
+                <option value="in_progress">В работе</option>
+                <option value="done">Завершённые</option>
+                <option value="rejected">Отклонённые</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="leads-table">
+            <thead>
+              <tr>
+                <th scope="col">№</th>
+                <th scope="col">Клиент</th>
+                <th scope="col">Телефон</th>
+                <th scope="col">Услуга</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Создана</th>
+                <th scope="col"><span class="visually-hidden">Действия</span></th>
+              </tr>
+            </thead>
+            <tbody id="leads-body"></tbody>
+          </table>
+
+          <div class="empty" id="empty-state" hidden>
+            <strong>Заявок пока нет</strong>
+            <p>Отправьте тестовую заявку с демо-лендинга.</p>
+          </div>
+        </div>
+
+        <p class="panel__status" id="admin-status" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <dialog class="lead-dialog" id="lead-dialog" aria-labelledby="dialog-title">
+      <div class="lead-dialog__head">
+        <div>
+          <p class="eyebrow">Заявка <span id="dialog-id"></span></p>
+          <h2 id="dialog-title"></h2>
+        </div>
+        <button class="icon-button" type="button" id="dialog-close" aria-label="Закрыть">
+          ×
+        </button>
+      </div>
+
+      <div class="lead-dialog__body">
+        <dl class="details">
+          <div>
+            <dt>Телефон</dt>
+            <dd><a id="dialog-phone" href=""></a></dd>
+          </div>
+          <div>
+            <dt>Услуга</dt>
+            <dd id="dialog-service"></dd>
+          </div>
+          <div>
+            <dt>Создана</dt>
+            <dd id="dialog-created"></dd>
+          </div>
+          <div>
+            <dt>Telegram</dt>
+            <dd id="dialog-telegram"></dd>
+          </div>
+        </dl>
+
+        <div class="message-block">
+          <h3>Комментарий</h3>
+          <p id="dialog-message"></p>
+        </div>
+
+        <form id="lead-form" class="form" novalidate>
+          <div class="field">
+            <label for="dialog-status">Статус</label>
+            <select id="dialog-status">
+              <option value="new">Новая</option>
+              <option value="in_progress">В работе</option>
+              <option value="done">Завершена</option>
+              <option value="rejected">Отклонена</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="dialog-note">Заметка администратора</label>
+            <textarea
+              id="dialog-note"
+              rows="4"
+              maxlength="2000"
+              placeholder="Что уже сделано, что дальше..."
+            ></textarea>
+          </div>
+
+          <p class="form-error" id="lead-error" role="alert" hidden></p>
+
+          <div class="lead-dialog__actions">
+            <button class="button button--primary" type="submit">Сохранить</button>
+            <button class="button button--ghost" type="button" id="retry-telegram">
+              Отправить в Telegram
+            </button>
+            <button class="button button--danger" type="button" id="delete-lead">
+              Удалить
+            </button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <script src="/admin.js" defer></script>
+  </body>
+</html>

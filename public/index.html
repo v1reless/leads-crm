@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LeadCRM — заявки, которые не теряются</title>
+    <meta
+      name="description"
+      content="Демо CRM заявок: форма, SQLite, админка и Telegram-уведомления."
+    >
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body class="landing-page">
+    <header class="landing-header">
+      <div class="container landing-header__inner">
+        <a class="brand" href="/" aria-label="LeadCRM — на главную">
+          <span class="brand__mark" aria-hidden="true">L</span>
+          <span class="brand__text">Lead<span>CRM</span></span>
+        </a>
+        <nav class="landing-nav" aria-label="Навигация">
+          <a href="#how">Как работает</a>
+          <a class="button button--ghost button--small" href="/admin">Войти в админку</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="landing-hero">
+        <div class="container landing-hero__grid">
+          <div class="landing-copy">
+            <p class="eyebrow">Демо-проект · Node.js + SQLite</p>
+            <h1>Заявки, которые <em>не теряются</em></h1>
+            <p class="landing-copy__lead">
+              Оставьте заявку — она попадёт в базу, появится в админке и придёт
+              в Telegram. Без таблиц в блокноте и потерянных сообщений.
+            </p>
+
+            <ul class="landing-points" aria-label="Возможности проекта">
+              <li><span>01</span> SQLite-база</li>
+              <li><span>02</span> Админка со статусами</li>
+              <li><span>03</span> Telegram-уведомления</li>
+            </ul>
+
+            <div class="landing-note">
+              <strong>Хотите проверить?</strong>
+              <span>Заполните форму справа. После отправки войдите в админку.</span>
+            </div>
+          </div>
+
+          <div class="landing-form-card">
+            <div class="card-head">
+              <p class="eyebrow">Оставить заявку</p>
+              <h2>Расскажите о задаче</h2>
+              <p>Ответим в рабочее время. Это демонстрационная форма.</p>
+            </div>
+
+            <form id="lead-form" class="form" novalidate>
+              <div class="field">
+                <label for="name">Имя</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autocomplete="name"
+                  maxlength="80"
+                  placeholder="Как к вам обращаться"
+                  required
+                >
+                <p class="field__error" data-error-for="name" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="phone">Телефон</label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  autocomplete="tel"
+                  maxlength="30"
+                  placeholder="+7 (999) 000-00-00"
+                  required
+                >
+                <p class="field__error" data-error-for="phone" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="service">Услуга</label>
+                <select id="service" name="service" required>
+                  <option value="">Выберите услугу</option>
+                  <option value="cosmetic">Косметический ремонт</option>
+                  <option value="capital">Капитальный ремонт</option>
+                  <option value="turnkey">Ремонт под ключ</option>
+                  <option value="other">Другое</option>
+                </select>
+                <p class="field__error" data-error-for="service" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="message">
+                  Комментарий <span class="field__optional">необязательно</span>
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="3"
+                  maxlength="500"
+                  placeholder="Коротко о задаче"
+                ></textarea>
+                <p class="field__error" data-error-for="message" hidden></p>
+              </div>
+
+              <label class="checkbox">
+                <input id="consent" name="consent" type="checkbox" required>
+                <span>Согласен на обработку персональных данных</span>
+              </label>
+              <p class="field__error" data-error-for="consent" hidden></p>
+
+              <button class="button button--primary button--full" type="submit">
+                Отправить заявку
+              </button>
+              <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="landing-how" id="how">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Что происходит дальше</p>
+            <h2>Одна заявка — три надёжных шага</h2>
+          </div>
+
+          <div class="steps">
+            <article class="step">
+              <span class="step__number">01</span>
+              <h3>Сохраняем</h3>
+              <p>
+                Заявка записывается в SQLite. Даже если Telegram недоступен,
+                данные не пропадут.
+              </p>
+            </article>
+            <article class="step">
+              <span class="step__number">02</span>
+              <h3>Уведомляем</h3>
+              <p>
+                В Telegram приходит карточка заявки. В рабочей версии — с
+                кнопкой перехода в CRM.
+              </p>
+            </article>
+            <article class="step">
+              <span class="step__number">03</span>
+              <h3>Ведём</h3>
+              <p>
+                Администратор меняет статус, добавляет заметку и видит
+                статистику по заявкам.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="landing-footer">
+      <div class="container landing-footer__inner">
+        <span>LeadCRM — учебный проект на Node.js</span>
+        <a href="/admin">Админка</a>
+      </div>
+    </footer>
+
+    <script src="/landing.js" defer></script>
+  </body>
+</html>

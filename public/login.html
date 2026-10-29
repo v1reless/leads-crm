@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Вход в CRM — LeadCRM</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body class="auth-page">
+    <main class="auth">
+      <section class="auth__card">
+        <a class="brand" href="/" aria-label="LeadCRM — на главную">
+          <span class="brand__mark" aria-hidden="true">L</span>
+          <span class="brand__text">Lead<span>CRM</span></span>
+        </a>
+
+        <p class="eyebrow">Админка</p>
+        <h1>Вход в CRM</h1>
+        <p class="auth__lead">
+          Введите данные администратора, чтобы открыть заявки.
+        </p>
+
+        <form id="login-form" class="form" novalidate>
+          <div class="field">
+            <label for="login">Логин</label>
+            <input
+              id="login"
+              name="login"
+              type="text"
+              autocomplete="username"
+              placeholder="admin"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="password">Пароль</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="••••••••"
+              required
+            >
+          </div>
+
+          <p class="form-error" id="login-error" role="alert" hidden></p>
+
+          <button class="button button--primary button--full" type="submit">
+            Войти
+          </button>
+        </form>
+
+        <p class="auth__hint">
+          Логин и пароль задаются в <code>.env</code>. После первого запуска
+          смените демо-пароль.
+        </p>
+        <a class="auth__back" href="/">← Вернуться на демо-лендинг</a>
+      </section>
+    </main>
+
+    <script src="/login.js" defer></script>
+  </body>
+</html>
