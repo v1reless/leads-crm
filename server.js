@@ -1060,11 +1060,18 @@ server.listen(PORT, HOST, () => {
   );
 });
 
-process.on('SIGINT', () => {
+function shutdown() {
   console.log('\nОстанавливаю сервер...');
 
   server.close(() => {
     db.close();
     process.exit(0);
   });
-});
+
+  // Закрываем простаивающие keep-alive соединения, чтобы сервер
+  // завершался сразу, а не ждал клиентов.
+  server.closeIdleConnections?.();
+}
+
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);

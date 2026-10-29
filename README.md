@@ -1,5 +1,7 @@
 # LeadCRM
 
+[![CI](https://github.com/v1reless/leads-crm/actions/workflows/ci.yml/badge.svg)](https://github.com/v1reless/leads-crm/actions/workflows/ci.yml)
+
 CRM заявок на Node.js: демо-лендинг с формой, SQLite-база, админка со статусами,
 заметками и экспортом CSV, Telegram-уведомления.
 
@@ -55,6 +57,18 @@ Copy-Item .env.example .env
 ```
 
 После этого задайте `ADMIN_PASSWORD` и остальные значения.
+
+## Проверка
+
+```powershell
+npm run check
+npm test
+```
+
+`npm test` запускает отдельный сервер на временной SQLite-базе и mock Telegram,
+поэтому реальные заявки и `.env` не затрагиваются. Проверяются API, вход,
+CSRF, поиск, статусы, CSV, повторная отправка в Telegram и защита production
+от демо-пароля. Те же проверки запускаются в GitHub Actions при каждом пуше.
 
 ## Настройка
 
@@ -178,6 +192,10 @@ leads-crm/
     landing.js       форма
     login.js         вход
     admin.js         список, фильтры, диалог заявки
+  test/
+    api.test.js      интеграционные тесты API и Telegram
+    production.test.js  проверка production-запуска
+  .github/workflows/ci.yml  проверки в GitHub Actions
   data/              SQLite (создаётся автоматически, не коммитится)
 ```
 
