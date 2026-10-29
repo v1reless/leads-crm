@@ -311,6 +311,12 @@ test('статические страницы и защита от path traversa
   const landing = await request('/');
   assert.equal(landing.status, 200);
   assert.match(landing.text, /LeadCRM/);
+  assert.equal(landing.headers.get('x-content-type-options'), 'nosniff');
+  assert.equal(landing.headers.get('x-frame-options'), 'DENY');
+  assert.match(
+    landing.headers.get('content-security-policy'),
+    /default-src 'self'/
+  );
 
   const admin = await request('/admin');
   assert.equal(admin.status, 200);
